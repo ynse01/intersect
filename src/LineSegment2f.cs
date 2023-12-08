@@ -14,14 +14,22 @@ namespace Intersect {
         {
             get
             {
-                if (!IsOn(index)) {
+                if (!IsOnSegment(index)) {
                     throw new ArgumentOutOfRangeException(nameof(index));
                 }
                 return Line[index];
             }
         }
 
-        public bool IsOn(float index) {
+        public float Length() {
+            return (this[EndIndex] - this[StartIndex]).Length();
+        }
+
+        public float SquaredLength() {
+            return (this[EndIndex] - this[StartIndex]).SquaredLength();
+        }
+
+        public bool IsOnSegment(float index) {
             return index >= StartIndex && index <= EndIndex;
         }
     }
