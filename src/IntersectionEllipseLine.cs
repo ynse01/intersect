@@ -13,7 +13,7 @@ namespace Intersect {
             var m = transformedLine.Slope;
             // See: https://www.emathzone.com/tutorials/geometry/intersection-of-line-and-ellipse.html
             var solutions = EquationSolver.SolveQuadratic(a2 * m * m + b2, 2 * a2 * m * c, a2 * (c * c - b2));
-            Point2f[] points = new Point2f[solutions.Length];
+            Point2f[] points = new Point2f[solutions.Count];
             for (int i = 0; i < points.Length; i++) {
                 points[i] = transformedLine[solutions[i]];
             }

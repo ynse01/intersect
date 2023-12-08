@@ -9,16 +9,18 @@ namespace Intersect {
             return -b / a;
         }
 
-        public static float[] SolveQuadratic(float a, float b, float c) {
+        public static IList<float> SolveQuadratic(float a, float b, float c) {
+            List<float> output = new List<float>();
             var discriminant = b * b - 4.0f * a * c;
             var divider = 2.0f * a;
             if (discriminant == 0.0f) {
-                return new float[] { -b / divider };
+                output.Add(-b / divider);
             } else if (discriminant > 0.0f) {
                 var root = (float)Math.Sqrt(discriminant);
-                return new float[] { (-b - root) / divider, (-b + root) / divider};
+                output.Add((-b - root) / divider);
+                output.Add((-b + root) / divider);
             }
-            return new float[0];
+            return output;
         }
 
         public static IList<float> SolveQubic(float a, float b, float c, float d) {
