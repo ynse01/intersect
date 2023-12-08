@@ -40,5 +40,17 @@ namespace Intersect.Test {
             // Assert
             CollectionAssert.AreEquivalent(actual, expected);
         }
+
+        [Test]
+        [TestCase(1, -3, 3, -1, 1)]
+        public void TestQubic3Roots(float a, float b, float c, float d, float root0)
+        {
+            // Arrange
+            float[] expected = new float[] { root0 };
+            // Act
+            var actual = EquationSolver.SolveQubic(a, b, c, d);
+            // Assert
+            CollectionAssert.AreEquivalent(actual, expected);
+        }
     }
 }

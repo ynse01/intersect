@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace Intersect {
 
-    public class Vector2f
+    public struct Vector2f
     {
         public float X;
 
