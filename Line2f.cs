@@ -7,5 +7,10 @@ namespace Intersect {
         public Vector2f Direction;
 
         public Point2f this[float index] => Origin + Direction * index;
+
+        public float Project(Point2f point) {
+            var vector = point - Origin;
+            return Direction.Dot(vector);
+        }
     }
 }
