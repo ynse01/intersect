@@ -26,6 +26,7 @@ namespace Intersect.Test {
         [TestCase(-4, 2, 6, 2)]
         [TestCase(2, 4, 2, 1)]
         [TestCase(2, 1, 9, 0)]
+        [TestCase(0, 2, 1, 1)]
         public void TestQuadratic(float a, float b, float c, int numRoots)
         {
             // Arrange
@@ -40,6 +41,7 @@ namespace Intersect.Test {
         [TestCase(1, -3, 3, -1, 1)]
         [TestCase(1, -7, 7, 15, 3)]
         [TestCase(1, -5, -2, 24, 3)]
+        [TestCase(0, -4, 2, 6, 2)]
         public void TestQubic(float a, float b, float c, float d, int numRoots)
         {
             // Arrange
