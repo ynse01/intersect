@@ -14,7 +14,12 @@ namespace Intersect {
         public int Compare(double x, double y)
         {
             var diff = x - y;
+            if (double.IsNaN(diff)) {
+                // We need to return something !
+                return 1;
+            }
             if (Math.Abs(diff) < Precision) {
+                // X and Y are equal.
                 return 0;
             }
             return Math.Sign(diff);

@@ -52,6 +52,22 @@ namespace Intersect.Test {
             AssertResults(actual, (x) => a * x * x * x + b * x * x + c * x + d);
         }
 
+        [Test]
+        [TestCase(1, 0, 0, 0, -6, 0)]
+        [TestCase(1, 0, -2, 0, 3, 0)]
+        [TestCase(1, 4, -9, 4, 1, 2)]
+        [TestCase(1, 7, 49, 343, 2401, 0)]
+        [TestCase(1, 2, -897, 60002, 000000, 2)]
+        public void TestQuartic(double a, double b, double c, double d, double e, int numRoots)
+        {
+            // Arrange
+            // Act
+            var actual = EquationSolver.SolveQuartic(a, b, c, d, e);
+            // Assert
+            Assert.AreEqual(numRoots, actual.Count);
+            AssertResults(actual, (x) => a * x * x * x * x + b * x * x * x + c * x * x + d * x + e);
+        }
+
         private void AssertResults(IList<double> results, Func<double, double> expected) {
             List<double> actual = new List<double>();
             List<double> zeros = new List<double>();
