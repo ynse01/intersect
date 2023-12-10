@@ -3,25 +3,25 @@ using System.Runtime.CompilerServices;
 
 namespace Intersect {
 
-    public struct Vector2f
+    public struct Vector2
     {
-        public float X;
+        public double X;
 
-        public float Y;
+        public double Y;
 
-        public float SquaredLength() {
+        public double SquaredLength() {
             return Dot(this);
         }
 
-        public float Length() {
-            return (float)Math.Sqrt(Dot(this));
+        public double Length() {
+            return Math.Sqrt(Dot(this));
         }
 
-        public float Dot(Vector2f other) {
+        public double Dot(Vector2 other) {
             return X * other.X + Y * other.Y;
         }
 
-        public float Cross(Vector2f other) {
+        public double Cross(Vector2 other) {
             return X * other.Y - Y * other.X;
         }
 
@@ -31,33 +31,33 @@ namespace Intersect {
             Y /= length;
         }
 
-        public float Theta() {
-            return (float)Math.Atan2(Y, X);
+        public double Theta() {
+            return Math.Atan2(Y, X);
         }
 
-        public static Vector2f operator +(Vector2f left, Vector2f right) {
-            return new Vector2f() { 
+        public static Vector2 operator +(Vector2 left, Vector2 right) {
+            return new Vector2() { 
                 X = left.X + right.X,
                 Y = left.Y + right.Y
             };
         }
 
-        public static Vector2f operator -(Vector2f left, Vector2f right) {
-            return new Vector2f() { 
+        public static Vector2 operator -(Vector2 left, Vector2 right) {
+            return new Vector2() { 
                 X = left.X - right.X,
                 Y = left.Y - right.Y
             };
         }
 
-        public static Vector2f operator *(Vector2f vector, float scalar) {
-            return new Vector2f() { 
+        public static Vector2 operator *(Vector2 vector, double scalar) {
+            return new Vector2() { 
                 X = vector.X * scalar,
                 Y = vector.Y * scalar
             };
         }
 
-        public static Vector2f operator *(float scalar, Vector2f vector) {
-            return new Vector2f() { 
+        public static Vector2 operator *(double scalar, Vector2 vector) {
+            return new Vector2() { 
                 X = vector.X * scalar,
                 Y = vector.Y * scalar
             };
@@ -65,8 +65,8 @@ namespace Intersect {
 
         public override bool Equals(object obj)
         {
-            if (obj is Vector2f) {
-                var other = (Vector2f)obj;
+            if (obj is Vector2) {
+                var other = (Vector2)obj;
                 return X == other.X && Y == other.Y;
             }
             return false;
@@ -79,7 +79,7 @@ namespace Intersect {
 
         public override string ToString()
         {
-            return $"Vector2f({X}, {Y})";
+            return $"Vector2({X}, {Y})";
         }
     }
 }

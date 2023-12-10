@@ -2,15 +2,15 @@ using System;
 
 namespace Intersect {
 
-    public class LineSegment2f
+    public class LineSegment2
     {
-        public Line2f Line;
+        public Line2 Line;
 
-        public float StartIndex;
+        public double StartIndex;
 
-        public float EndIndex;
+        public double EndIndex;
 
-        public Point2f this[float index]
+        public Point2 this[double index]
         {
             get
             {
@@ -21,15 +21,15 @@ namespace Intersect {
             }
         }
 
-        public float Length() {
+        public double Length() {
             return (this[EndIndex] - this[StartIndex]).Length();
         }
 
-        public float SquaredLength() {
+        public double SquaredLength() {
             return (this[EndIndex] - this[StartIndex]).SquaredLength();
         }
 
-        public bool IsOnSegment(float index) {
+        public bool IsOnSegment(double index) {
             return index >= StartIndex && index <= EndIndex;
         }
     }
