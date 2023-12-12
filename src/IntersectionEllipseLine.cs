@@ -1,4 +1,3 @@
-
 using System;
 
 namespace Intersect {
@@ -20,7 +19,7 @@ namespace Intersect {
             double d = -2d * a * xOrigin - b * yOrigin;
             double e = -b * xOrigin - 2d * c * yOrigin;
             double f = a * xOrigin * xOrigin + b * xOrigin * yOrigin + c * yOrigin * yOrigin - a2 * b2;
-            var l = -line.Intercept;
+            var l = -line.YIntercept;
             var m = line.Slope;
             // Fill in y = m * x + l and putting into normal form, gives:
             var solutions = 

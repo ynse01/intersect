@@ -6,29 +6,29 @@ namespace Intersect {
 
     public class Line2
     {
-        public double Intercept;
+        public double YIntercept;
 
         public double Slope;
 
         public static Line2 FromPoints(Point2 start, Point2 end) {
             var slope = (end.Y - start.Y) / (end.X - start.X);
-            var intercept = start.Y - (slope * start.X);
+            var intercept = (slope * start.X) - start.Y;
             return new Line2(slope, intercept);
         }
 
-        public Line2(double slope, double intercept) {
+        public Line2(double slope, double yIntercept) {
             Slope = slope;
-            Intercept = intercept;
+            YIntercept = yIntercept;
         }
 
         public Point2 this[double x] {
             get {
-                return new Point2(x, Slope * x + Intercept);
+                return new Point2(x, Slope * x + YIntercept);
             }
         }
 
         public Point2 Origin() {
-            return new Point2(0d, Intercept);
+            return this[0d];
         }
 
         public Vector2 Direction() {
@@ -55,7 +55,7 @@ namespace Intersect {
         {
             if (obj is Line2) {
                 var other = (Line2)obj;
-                return Slope == other.Slope && Intercept == other.Intercept;
+                return Slope == other.Slope && YIntercept == other.YIntercept;
             }
             return false;
         }
@@ -67,7 +67,7 @@ namespace Intersect {
 
         public override string ToString()
         {
-            return $"Line2({Slope} * x {(Intercept < 0 ? '-' : '+')} {Math.Abs(Intercept)})";
+            return $"Line2({Slope} * x {(YIntercept > 0 ? '-' : '+')} {Math.Abs(YIntercept)})";
         }
 
     }
