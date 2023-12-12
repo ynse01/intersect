@@ -9,6 +9,11 @@ namespace Intersect {
 
         public double Y;
 
+        public Vector2(double x, double y) {
+            X = x;
+            Y = y;
+        }
+
         public double SquaredLength() {
             return Dot(this);
         }

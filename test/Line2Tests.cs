@@ -16,8 +16,8 @@ namespace Intersect.Test {
         public void TestFromPoints(double x1, double y1, double x2, double y2, double slope, double intercept)
         {
             // Arrange
-            var start = new Point2 { X = x1, Y = y1 };
-            var end = new Point2 { X = x2, Y = y2 };
+            var start = new Point2(x1, y1);
+            var end = new Point2(x2, y2);
             var expected = new Line2(slope, intercept);
             // Act
             var actual = Line2.FromPoints(start,end);

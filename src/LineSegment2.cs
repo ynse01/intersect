@@ -8,6 +8,11 @@ namespace Intersect {
 
         public Point2 End;
 
+        public LineSegment2(Point2 start, Point2 end) {
+            Start = start;
+            End = end;
+        }
+
         public Point2 this[double index]
         {
             get

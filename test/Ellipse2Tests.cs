@@ -9,12 +9,9 @@ namespace Intersect.Test {
         public void TestArea()
         {
             // Arrange
-            var ellipse = new Ellipse2() {
-                MajorRadius = 18,
-                MinorRadius = 14,
-                Origin = new Point2 { X = 3d, Y = 6d},
-                Angle = Angle.FromDegrees(0d)
-            };
+            var center = new Point2(3d, 6d);
+            var angle = Angle.FromDegrees(0d);
+            var ellipse = new Ellipse2(18, 14, center, angle);
             var expected = Math.PI * 18 * 14;
             // Act
             var actual = ellipse.Area();

@@ -23,22 +23,22 @@ namespace Intersect {
 
         public Point2 this[double x] {
             get {
-                return new Point2 { X = x, Y = Slope * x + Intercept };
+                return new Point2(x, Slope * x + Intercept);
             }
         }
 
         public Point2 Origin() {
-            return new Point2 { X = 0d, Y = Intercept };
+            return new Point2(0d, Intercept);
         }
 
         public Vector2 Direction() {
-            var direction = new Vector2 { X = 1d, Y = Slope };
+            var direction = new Vector2(1d, Slope);
             direction.Normalize();
             return direction;
         }
 
         public Angle Angle() {
-            return new Vector2 { X = 1d, Y = Slope }.Angle();
+            return new Vector2(1d, Slope).Angle();
         }
 
         public double Project(Point2 point) {

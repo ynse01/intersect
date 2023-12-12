@@ -9,6 +9,11 @@ namespace Intersect {
 
         public double Y;
 
+        public Point2(double x, double y) {
+            X = x;
+            Y = y;
+        }
+
         public double SquaredDistance(Point2 other) {
             return (other - this).SquaredLength();
         }
