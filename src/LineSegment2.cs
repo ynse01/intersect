@@ -4,11 +4,9 @@ namespace Intersect {
 
     public class LineSegment2
     {
-        public Line2 Line;
+        public Point2 Start;
 
-        public double StartIndex;
-
-        public double EndIndex;
+        public Point2 End;
 
         public Point2 this[double index]
         {
@@ -17,20 +15,24 @@ namespace Intersect {
                 if (!IsOnSegment(index)) {
                     throw new ArgumentOutOfRangeException(nameof(index));
                 }
-                return Line[index];
+                return Line()[index];
             }
         }
 
         public double Length() {
-            return (this[EndIndex] - this[StartIndex]).Length();
+            return (End - Start).Length();
         }
 
         public double SquaredLength() {
-            return (this[EndIndex] - this[StartIndex]).SquaredLength();
+            return (End - Start).SquaredLength();
+        }
+
+        public Line2 Line() {
+            return Line2.FromPoints(Start, End);
         }
 
         public bool IsOnSegment(double index) {
-            return index >= StartIndex && index <= EndIndex;
+            return index >= 0d && index <= 1d;
         }
     }
 }

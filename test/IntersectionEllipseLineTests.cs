@@ -13,10 +13,7 @@ namespace Intersect.Test {
                 MajorRadius = 18,
                 MinorRadius = 14
             };
-            var line = new Line2 {
-                Slope = 1,
-                Intercept = 0
-            };
+            var line = new Line2(1d, 0d);
             var val = 11.050932f;
             var expected = new Point2[] { 
                 new Point2 { X = -val, Y = -val},

@@ -19,7 +19,7 @@ namespace Intersect.Test {
             // Act
             var actual = ellipse.Area();
             // Assert
-            Assert.AreEqual(actual, expected);
+            Assert.AreEqual(expected, actual);
         }
     }
 }
