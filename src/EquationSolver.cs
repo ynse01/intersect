@@ -70,6 +70,10 @@ namespace Intersect {
             if (a == 0d) {
                 return SolveQubic(b, c, d, e);
             }
+            if (b == 0d && c == 0d && d == 0d && e == 0d) {
+                output.Add(0d);
+                return output;
+            }
             double a1 = b / a;
             double a2 = c / a;
             double a3 = d / a;
