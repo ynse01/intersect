@@ -31,8 +31,8 @@ namespace Intersect {
             Y /= length;
         }
 
-        public double Theta() {
-            return Math.Atan2(Y, X);
+        public Angle Angle() {
+            return Intersect.Angle.FromRadians(Math.Atan2(Y, X));
         }
 
         public static Vector2 operator +(Vector2 left, Vector2 right) {

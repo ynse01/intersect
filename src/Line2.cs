@@ -25,6 +25,10 @@ namespace Intersect {
             return direction;
         }
 
+        public Angle Angle() {
+            return new Vector2 { X = 1d, Y = Slope }.Angle();
+        }
+
         public double Project(Point2 point) {
             var vector = point - Origin();
             return Direction().Dot(vector);

@@ -6,7 +6,7 @@ namespace Intersect {
     {
         public Point2 Origin;
 
-        public Vector2 Direction;
+        public Angle Angle;
 
         public double MajorRadius;
 
