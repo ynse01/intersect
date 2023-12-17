@@ -40,5 +40,9 @@ namespace Intersect {
         public static Angle operator/(Angle angle, double scalar) {
             return new Angle(angle.Radians / scalar);
         }
+
+        public static double operator/(Angle left, Angle right) {
+            return left.Radians / right.Radians;
+        }
     }
 }
