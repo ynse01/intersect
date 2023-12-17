@@ -72,7 +72,8 @@ namespace Intersect {
         {
             if (obj is Vector2) {
                 var other = (Vector2)obj;
-                return X == other.X && Y == other.Y;
+                var comparer = DoubleComparer.Instance;
+                return comparer.Equals(X, other.X) && comparer.Equals(Y, other.Y);
             }
             return false;
         }
