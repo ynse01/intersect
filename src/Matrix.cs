@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Intersect
@@ -38,17 +39,7 @@ namespace Intersect
         }
 
         public Matrix Inversed() {
-            if (columnCount != rowCount) {
-                throw new ArgumentException("Can only inverse square matrices.");
-            }
-            var inverse = new Matrix(rowCount, columnCount);
-            for (int y = 0; y < rowCount; y++) {
-                for (int x = 0; x < columnCount; x++) {
-                    inverse[y, x] = this[x, y] * MinusOnePower(x + y);// * CoFactor(x, y);
-                }
-            }
-
-            return Determinant() * inverse;
+            return (1d / Determinant()) * Adjoint();
         }
 
         public double Determinant() {
@@ -62,6 +53,28 @@ namespace Intersect
                 factor *= -1;
             }
             return det;
+        }
+
+        public Matrix Adjoint() {
+            if (columnCount != rowCount) {
+                throw new ArgumentException("Can only calculate Adjoint on square matrices.");
+            }
+            var result = new Matrix(rowCount, columnCount);
+            if (rowCount == 2) {
+                var det = Determinant();
+                result[0, 0] = this[1, 1];
+                result[0, 1] = -this[0, 1];
+                result[1, 0] = -this[1, 0];
+                result[1, 1] = this[0, 0];
+            } else {
+                for (int y = 0; y < rowCount; y++) {
+                    for (int x = 0; x < columnCount; x++) {
+                        result[y, x] = MinusOnePower(x + y) * Determinant(x, y);
+                    }
+                }
+            }
+
+            return result;
         }
 
         public static Matrix operator +(Matrix left, Matrix right) {
@@ -109,6 +122,21 @@ namespace Intersect
                 multiplied.matrix[i] = scalar * matrix.matrix[i];
             }
             return multiplied;
+        }
+
+        public override bool Equals(object obj)
+        {
+            var other = obj as Matrix;
+            if (other != null) {
+                var comparer =  new CollectionComparer<double>(DoubleComparer.Instance);
+                return comparer.Equals(matrix, other.matrix);
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return RuntimeHelpers.GetHashCode(this);
         }
 
         public override string ToString()
