@@ -67,5 +67,21 @@ namespace Intersect {
             result.Points.Add(this[end]);
             return result;
         }
+
+        internal void ToSvg(XmlNode parent, string fillColor) {
+            var doc = parent.OwnerDocument;
+            var element = doc.CreateElement("ellipse");
+            element.SetAttribute("fill", fillColor);
+            element.SetAttribute("cx", Origin.X.ToString());
+            element.SetAttribute("cy", Origin.Y.ToString());
+            element.SetAttribute("rx", MajorRadius.ToString());
+            element.SetAttribute("ry", MinorRadius.ToString());
+            if (Angle.Radians != 0d) {
+                var mat = transformation.Matrix;
+                var transValue = $"matrix({mat[0]} {mat[1]} {mat[2]} {mat[3]} {mat[4]} {mat[5]})";
+                element.SetAttribute("transform", transValue);
+            }
+            parent.AppendChild(element);
+        }
     }
 }
