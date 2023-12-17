@@ -1,4 +1,5 @@
 using System;
+using System.Xml;
 
 namespace Intersect {
 
@@ -39,5 +40,18 @@ namespace Intersect {
         public bool IsOnSegment(double index) {
             return index >= 0d && index <= 1d;
         }
+
+        internal void ToSvg(XmlNode parent, string strokeColor) {
+            var doc = parent.OwnerDocument;
+            var element = doc.CreateElement("line");
+            element.SetAttribute("fill", "none");
+            element.SetAttribute("stroke", strokeColor);
+            element.SetAttribute("x1", Start.X.ToString());
+            element.SetAttribute("y1", Start.Y.ToString());
+            element.SetAttribute("x2", End.X.ToString());
+            element.SetAttribute("y2", End.Y.ToString());
+            parent.AppendChild(element);
+        }
+
     }
 }

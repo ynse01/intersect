@@ -52,6 +52,14 @@ namespace Intersect {
             return DoubleComparer.Instance.Compare(value, 1d) == 0;
         }
 
+        public LineSegment2 MajorAxis() {
+            return new LineSegment2(this[Angle.FromRadians(0d)], this[Angle.FromDegrees(180)]);
+        }
+
+        public LineSegment2 MinorAxis() {
+            return new LineSegment2(this[Angle.FromDegrees(90)], this[Angle.FromDegrees(270)]);
+        }
+
         public PolyLine2 ToPolyLine(Angle maxError) {
             return ToPolyLine(maxError, Angle.FromDegrees(0d), Angle.FromDegrees(360d));
         }
@@ -72,14 +80,15 @@ namespace Intersect {
             var doc = parent.OwnerDocument;
             var element = doc.CreateElement("ellipse");
             element.SetAttribute("fill", fillColor);
-            element.SetAttribute("cx", Origin.X.ToString());
-            element.SetAttribute("cy", Origin.Y.ToString());
             element.SetAttribute("rx", MajorRadius.ToString());
             element.SetAttribute("ry", MinorRadius.ToString());
             if (Angle.Radians != 0d) {
-                var mat = transformation.Matrix;
-                var transValue = $"matrix({mat[0]} {mat[1]} {mat[2]} {mat[3]} {mat[4]} {mat[5]})";
-                element.SetAttribute("transform", transValue);
+                element.SetAttribute("cx", "0");
+                element.SetAttribute("cy", "0");
+                element.SetAttribute("transform", transformation.ToSvgTransform());
+            } else {
+                element.SetAttribute("cx", Origin.X.ToString());
+                element.SetAttribute("cy", Origin.Y.ToString());
             }
             parent.AppendChild(element);
         }

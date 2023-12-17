@@ -23,6 +23,10 @@ namespace Intersect {
             ellipse.ToSvg(svgElement, fillColor);
         }
 
+        public void Draw(LineSegment2 line, string strokeColor) {
+            line.ToSvg(svgElement, strokeColor);
+        }
+
         public void Draw(PolyLine2 polyLine, string strokeColor) {
             polyLine.ToSvg(svgElement, strokeColor);
         }

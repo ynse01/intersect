@@ -30,6 +30,5 @@ namespace Intersect {
             element.SetAttribute("points", builder.ToString());
             parent.AppendChild(element);
         }
-
     }
 }

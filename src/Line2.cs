@@ -1,6 +1,7 @@
 
 using System;
 using System.Runtime.CompilerServices;
+using System.Xml;
 
 namespace Intersect {
 
@@ -69,6 +70,5 @@ namespace Intersect {
         {
             return $"Line2({Slope} * x {(YIntercept > 0 ? '-' : '+')} {Math.Abs(YIntercept)})";
         }
-
     }
 }

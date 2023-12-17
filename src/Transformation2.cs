@@ -16,10 +16,10 @@ namespace Intersect {
             var cos = Math.Cos(theta.Radians);
             var sin = Math.Sin(theta.Radians);
             trans.Matrix[0] = cos;
-            trans.Matrix[1] = -sin;
+            trans.Matrix[1] = sin;
             trans.Matrix[2] = translation.X;
 
-            trans.Matrix[3] = sin;
+            trans.Matrix[3] = -sin;
             trans.Matrix[4] = cos;
             trans.Matrix[5] = translation.Y;
 
@@ -38,6 +38,10 @@ namespace Intersect {
             var y = Matrix[3] * vector.X + Matrix[4] * vector.Y;
             var w = Matrix[8];
             return new Vector2(x / w, y / w);
+        }
+
+        internal string ToSvgTransform() {
+            return $"matrix({Matrix[0]} {Matrix[3]} {Matrix[1]} {Matrix[4]} {Matrix[2]} {Matrix[5]})";
         }
     }
 }
