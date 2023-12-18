@@ -4,44 +4,53 @@ namespace Intersect {
 
     public class Transformation2
     {
-        public double[] Matrix;
+        internal Matrix matrix;
 
         public Transformation2() {
-            Matrix = new double[9];
-            Matrix[0] = Matrix[4] = Matrix[8] = 1d;
+            matrix = new Matrix(3, 3);
+            matrix[0, 0] = matrix[1, 1] = matrix[2, 2] = 1d;
         }
 
         public static Transformation2 FromRotationAndTranslation(Angle theta, Vector2 translation) {
             var trans = new Transformation2();
             var cos = Math.Cos(theta.Radians);
             var sin = Math.Sin(theta.Radians);
-            trans.Matrix[0] = cos;
-            trans.Matrix[1] = sin;
-            trans.Matrix[2] = translation.X;
+            trans.matrix[0, 0] = cos;
+            trans.matrix[0, 1] = sin;
+            trans.matrix[0, 2] = translation.X;
 
-            trans.Matrix[3] = -sin;
-            trans.Matrix[4] = cos;
-            trans.Matrix[5] = translation.Y;
+            trans.matrix[1, 0] = -sin;
+            trans.matrix[1, 1] = cos;
+            trans.matrix[1, 2] = translation.Y;
 
             return trans;
         }
 
+        public double this[int column, int row] {
+            get {
+                return matrix[column, row];
+            }
+            set {
+                matrix[column, row] = value;
+            }
+        }
+
         public Point2 Transform(Point2 point) {
-            var x = Matrix[0] * point.X + Matrix[1] * point.Y + Matrix[2];
-            var y = Matrix[3] * point.X + Matrix[4] * point.Y + Matrix[5];
-            var w = Matrix[8];
+            var x = matrix[0, 0] * point.X + matrix[0, 1] * point.Y + matrix[0, 2];
+            var y = matrix[1, 0] * point.X + matrix[1, 1] * point.Y + matrix[1, 2];
+            var w = matrix[2, 2];
             return new Point2(x / w, y / w);
         }
 
         public Vector2 Transform(Vector2 vector) {
-            var x = Matrix[0] * vector.X + Matrix[1] * vector.Y;
-            var y = Matrix[3] * vector.X + Matrix[4] * vector.Y;
-            var w = Matrix[8];
+            var x = matrix[0, 0] * vector.X + matrix[0, 1] * vector.Y;
+            var y = matrix[1, 0] * vector.X + matrix[1, 1] * vector.Y;
+            var w = matrix[2, 2];
             return new Vector2(x / w, y / w);
         }
 
         internal string ToSvgTransform() {
-            return $"matrix({Matrix[0]} {Matrix[3]} {Matrix[1]} {Matrix[4]} {Matrix[2]} {Matrix[5]})";
+            return $"matrix({matrix[0, 0]} {matrix[1, 0]} {matrix[0, 1]} {matrix[1, 1]} {matrix[0, 2]} {matrix[1, 2]})";
         }
     }
 }

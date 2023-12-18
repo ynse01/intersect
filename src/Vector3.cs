@@ -29,8 +29,13 @@ namespace Intersect {
             return X * other.X + Y * other.Y + Z * other.Z;
         }
 
-        public double Cross(Vector3 other) {
-            return X * other.Y - Y * other.X;
+        public Vector3 Cross(Vector3 other) {
+            var cross = new Vector3 {
+                X = Y * other.Z - Z * other.Y,
+                Y = X * other.Z - Z * other.X,
+                Z = X * other.Y - Y * other.X
+            };
+            return cross;
         }
 
         public void Normalize() {
