@@ -30,6 +30,10 @@ namespace Intersect {
             return space;
         }
 
+        public static CartesianSpace FromNormal(Point3 origin, Vector3 normal) {
+            return null;
+        }
+
         public Vector3 ZAxis() {
             return XAxis.Cross(YAxis);
         }

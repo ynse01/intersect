@@ -3,10 +3,8 @@ namespace Intersect {
 
     public class Ellipsoid3
     {
-        public Point2 Origin;
-
-        public Angle Angle;
-
+        public CartesianSpace Space;
+        
         public double MajorRadius;
 
         public double MinorRadius;
