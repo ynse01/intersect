@@ -16,7 +16,7 @@ namespace Intersect.Test {
                 new Point2(val, val)
             };
             // Act
-            var actual = IntersectionOfEllipseWithLine.Intersect(ellipse, line);
+            var actual = ellipse.Intersect(line);
             // Assert
             Assert.AreEqual(actual, expected);
         }

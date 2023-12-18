@@ -2,7 +2,7 @@ using System;
 
 namespace Intersect {
 
-    public static class IntersectionOfEllipseWithLine
+    internal static class IntersectionOfEllipseWithLine
     {
         public static Point2[] Intersect(Ellipse2 ellipse, Line2 line) {
             var a2 = ellipse.MajorRadius * ellipse.MajorRadius;
