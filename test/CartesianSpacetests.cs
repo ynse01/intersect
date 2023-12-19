@@ -15,7 +15,6 @@ namespace Intersect.Test {
             // Act
             var actual = CartesianSpace.FromNormal(center, normal);
             // Assert
-            Console.WriteLine(actual);
             Assert.AreEqual(expected, actual.XAxis.Dot(actual.YAxis));
             Assert.AreEqual(expected, actual.YAxis.Dot(actual.ZAxis()));
             Assert.AreEqual(expected, actual.ZAxis().Dot(actual.XAxis));
