@@ -1,4 +1,3 @@
-
 using System;
 
 namespace Intersect {
@@ -10,6 +9,8 @@ namespace Intersect {
         public Vector3 YAxis;
 
         public Point3 Origin;
+
+        private CartesianSpace() {}
 
         public static CartesianSpace FromTransformation(Transformation3 trans) {
             if (trans[3, 3] != 1d) {
@@ -31,7 +32,25 @@ namespace Intersect {
         }
 
         public static CartesianSpace FromNormal(Point3 origin, Vector3 normal) {
-            return null;
+            var d = normal.Dot(origin - new Point3());
+            var firstAxis = new Vector3(0, -normal.Z / normal.Y, 1d);
+            firstAxis.Normalize();
+            if (normal.Y == 0d || firstAxis.Dot(normal) > 0.9d) {
+                firstAxis = new Vector3(1d, 0, -normal.X / normal.Z);
+                firstAxis.Normalize();
+                if (normal.X == 0d || firstAxis.Dot(normal) > 0.9d) {
+                    firstAxis = new Vector3(1d, 0, -normal.X / normal.Z);
+                    firstAxis.Normalize();
+                }
+            }
+            var secondAxis = firstAxis.Cross(normal);
+            // Make sure all 3 axes are truely orthogonal.
+            var thirdAxis = secondAxis.Cross(normal);
+            return new CartesianSpace() {
+                XAxis = thirdAxis,
+                YAxis = secondAxis,
+                Origin = origin
+            };
         }
 
         public Vector3 ZAxis() {
@@ -57,6 +76,11 @@ namespace Intersect {
             matrix[2, 3] = Origin.Z;
             matrix[3, 3] = 1d;
             return matrix;
+        }
+
+        public override string ToString()
+        {
+            return $"Cartesian(X={XAxis}, Y={YAxis}, Z={ZAxis()})";
         }
     }
 }

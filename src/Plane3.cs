@@ -7,6 +7,12 @@ namespace Intersect {
 
         public Point3 Origin;
 
+        public Plane3(Point3 origin, Vector3 normal)
+        {
+            Origin = origin;
+            Normal = normal;
+        }
+
         public CartesianSpace Space() {
             return CartesianSpace.FromNormal(Origin, Normal);
         }
