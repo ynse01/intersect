@@ -77,6 +77,14 @@ namespace Intersect {
             };
         }
 
+        internal Matrix ToMatrix() {
+            var matrix = new Matrix(1, 3);
+            matrix[0, 0] = X;
+            matrix[0, 1] = Y;
+            matrix[0, 2] = Z;
+            return matrix;
+        }
+
         public override bool Equals(object obj)
         {
             if (obj is Vector3) {

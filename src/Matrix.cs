@@ -13,6 +13,14 @@ namespace Intersect
         private int columnCount;
         private int rowCount;
 
+        public static Matrix Identity(int size) {
+            var identity = new Matrix(size, size);
+            for(int i = 0; i < size; i++) {
+                identity[i, i] = 1d;
+            }
+            return identity;
+        }
+
         public Matrix(int numColumns, int numRows) {
             matrix = new double[numColumns * numRows];
             columnCount = numColumns;
@@ -106,7 +114,7 @@ namespace Intersect
             var multiplied = new Matrix(right.columnCount, left.rowCount);
             for(int y = 0; y < multiplied.rowCount; y++) {
                 for(int x = 0; x < multiplied.columnCount; x++) {
-                    multiplied[x, y] = Dot(left.GetRow(x), right.GetColumn(y));
+                    multiplied[x, y] = Dot(left.GetRow(y), right.GetColumn(x));
                 }
             }
             return multiplied;
@@ -122,6 +130,10 @@ namespace Intersect
                 multiplied.matrix[i] = scalar * matrix.matrix[i];
             }
             return multiplied;
+        }
+
+        public static Matrix operator /(Matrix matrix, double scalar) {
+            return (1d / scalar) * matrix;
         }
 
         public override bool Equals(object obj)
@@ -154,8 +166,11 @@ namespace Intersect
             return new SkipList<double>(matrix, index, columnCount);
         }
 
-        private IReadOnlyList<double> GetRow(int index) {
-            return new ArraySegment<double>(matrix, index * columnCount, columnCount);
+        private IReadOnlyList<double> GetRow(int row) {
+            if (row >= rowCount) {
+                throw new ArgumentOutOfRangeException(nameof(row));
+            }
+            return new ArraySegment<double>(matrix, row * columnCount, columnCount);
         }
 
         private static double Dot(IReadOnlyList<double> left, IReadOnlyList<double> right) {

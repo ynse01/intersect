@@ -92,5 +92,10 @@ namespace Intersect {
             }
             parent.AppendChild(element);
         }
+
+        public override string ToString()
+        {
+            return $"Ellipse2({MajorRadius}-{MinorRadius})";
+        }
     }
 }
