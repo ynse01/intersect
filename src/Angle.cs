@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 
 namespace Intersect {
 
@@ -43,6 +44,26 @@ namespace Intersect {
 
         public static double operator/(Angle left, Angle right) {
             return left.Radians / right.Radians;
+        }
+
+         public override bool Equals(object obj)
+        {
+            if (obj is Angle) {
+                var other = (Angle)obj;
+                var comparer = DoubleComparer.Instance;
+                return comparer.Equals(Radians, other.Radians);
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return RuntimeHelpers.GetHashCode(this);
+        }
+
+        public override string ToString()
+        {
+            return $"Angle({Degrees()})";
         }
     }
 }

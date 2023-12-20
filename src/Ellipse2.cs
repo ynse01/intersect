@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Xml;
 
 namespace Intersect {
@@ -93,9 +94,24 @@ namespace Intersect {
             parent.AppendChild(element);
         }
 
+        public override bool Equals(object obj)
+        {
+            var other = obj as Ellipse2;
+            if (other != null) {
+                var comparer = DoubleComparer.Instance;
+                return Origin.Equals(other.Origin) && comparer.Equals(MajorRadius, other.MajorRadius) && comparer.Equals(MinorRadius, other.MinorRadius) && Angle.Equals(other.Angle);
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return RuntimeHelpers.GetHashCode(this);
+        }
+        
         public override string ToString()
         {
-            return $"Ellipse2({MajorRadius}-{MinorRadius})";
+            return $"Ellipse2(Radii={MajorRadius}x{MinorRadius} {Origin} {Angle})";
         }
     }
 }

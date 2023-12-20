@@ -9,7 +9,11 @@ namespace Intersect {
             // Taken over from: https://www.geometrictools.com/Documentation/IntersectionCylinderPlane.pdf
             var space = plane.Space();
             ellipse = IntersectThrough(cylinder, space);
-            lines = IntersectParallel(cylinder, space);
+            if (ellipse == null) {
+                lines = IntersectParallel(cylinder, space);
+            } else {
+                lines = new List<LineSegment3>();
+            }
         }
 
         private static List<LineSegment3> IntersectParallel(Cylinder3 cylinder, CartesianSpace space) {
@@ -45,6 +49,7 @@ namespace Intersect {
             var delta = (space.Origin - cylinder.Origin).ToMatrix();
             var w = cylinder.Axis.ToMatrix();
             var m = Matrix.Identity(3) - w * w.Transposed();
+            Console.WriteLine($"a {a}, b {b}, M {m}");
             var q0 = (delta.Transposed() * m * delta)[0, 0] - cylinder.Radius * cylinder.Radius;
             var q1 = new Matrix(1, 2);
             q1[0, 0] = 2d * (at * m * delta)[0, 0];
@@ -56,10 +61,12 @@ namespace Intersect {
             q2[1, 1] = (bt * m * b)[0, 0];
             var k = -1d * q2.Inversed() * q1;
             var s = q2 / ((k.Transposed() * q2 * k)[0, 0] - q0);
+            Console.WriteLine($"S {s}, Q1 {q1}, Q2 {q2}");
             EigenValues2x2(s, out double eig0, out double eig1);
             if (!double.IsNaN(eig0) || !double.IsNaN(eig1)) {
-                var majorRadius = 1d / (eig0 * eig0);
-                var minorRadius = 1d / (eig1 * eig1);
+                Console.WriteLine($"Eigen values {eig0} {eig1}");
+                var majorRadius = Math.Sqrt(1d / Math.Sqrt(eig0));
+                var minorRadius = Math.Sqrt(1d / Math.Sqrt(eig1));
                 var direction = EigenValue2EigenVector2x2(s, eig0);
                 return new Ellipse2(majorRadius, minorRadius, AsPoint2(k), direction.Angle());
             }
